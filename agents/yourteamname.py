@@ -14,12 +14,12 @@ class Agent(object):
         # Complications: pickle should work with any machine learning models
         # However, this does not work with custom defined classes, due to the way pickle operates
         # TODO you can replace this with your own model
-        self.filename = 'machine_learning_model/'+params['model_file']
+        self.filename = 'machine_learning_model/trained_model'
         self.trained_model = pickle.load(open(self.filename, 'rb'))
 
     def _process_last_sale(self, last_sale, profit_each_team):
-        print("last_sale: ", last_sale)
-        print("profit_each_team: ", profit_each_team)
+        # print("last_sale: ", last_sale)
+        # print("profit_each_team: ", profit_each_team)
         my_current_profit = profit_each_team[self.this_agent_number]
         opponent_current_profit = profit_each_team[self.opponent_number]
 
@@ -44,7 +44,7 @@ class Agent(object):
         pass
 
     # Given an observation which is #info for new buyer, information for last iteration, and current profit from each time
-    # Covariates of the current buyer
+    # Covariates of the current buyer, and potentially embedding. Embedding may be None
     # Data from last iteration (which item customer purchased, who purchased from, prices for each agent for each item (2x2, where rows are agents and columns are items)))
     # Returns an action: a list of length n_items=2, indicating prices this agent is posting for each item.
     def action(self, obs):
